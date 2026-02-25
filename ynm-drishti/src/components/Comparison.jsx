@@ -1,4 +1,4 @@
-import { motion, useInView, useAnimation } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 import { X, Check, ArrowRight, TrendingUp, Zap } from 'lucide-react';
 

@@ -88,7 +88,7 @@ const FloatingStats = () => {
     if (N === 0) return;
 
     /* ── Cached geometry (resize-only) ──────────────────────────────── */
-    let W = 0, H = 0, cx = 0, cy = 0, exR = 0, exRSq = 0;
+    let W = 0, H = 0, cx = 0, cy = 0, exR = 0;
     // Flat array for 4 rect zones: [x,y,w,h, …]
     const rz = new Float64Array(16);
     const RZ = 4;
@@ -102,8 +102,6 @@ const FloatingStats = () => {
       const vmin    = Math.min(window.innerWidth, window.innerHeight);
       const ringBox = Math.min(860, Math.max(440, 0.88 * vmin));
       exR   = ringBox * 0.88 * 0.5 + RING_MARGIN;
-      exRSq = exR * exR;
-
       const wr = wrapper.getBoundingClientRect();
       const wT = wr.top, wL = wr.left;
       const vW = window.innerWidth, vH = window.innerHeight;

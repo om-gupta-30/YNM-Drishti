@@ -427,7 +427,7 @@ const Navbar = () => {
                 }}
               >
                 <div className="p-4 space-y-1">
-                  {navLinks.map((link, index) => {
+                  {navLinks.map((link) => {
                     if (link.dropdown) {
                       return (
                         <div key={link.name} className="space-y-1">

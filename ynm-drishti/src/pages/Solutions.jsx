@@ -190,7 +190,7 @@ const Solutions = () => {
 
           <motion.div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
             variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            {process.map((p, i) => (
+            {process.map((p) => (
               <motion.div key={p.step} variants={fadeInUp} className="group relative">
                 <div className="h-full p-6 rounded-2xl transition-all duration-300 hover:scale-[1.03]"
                   style={{ background: 'linear-gradient(135deg, rgba(15,25,45,0.8) 0%, rgba(20,35,60,0.8) 100%)', border: '1px solid rgba(255,215,0,0.1)' }}>

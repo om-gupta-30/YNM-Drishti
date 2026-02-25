@@ -444,7 +444,7 @@ const Leadership = () => {
 
           <motion.div className="grid sm:grid-cols-2 gap-5"
             variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            {recognitions.map((r, i) => (
+            {recognitions.map((r) => (
               <motion.div key={r.title} variants={fadeInUp}
                 className="flex items-center gap-4 p-5 rounded-xl group hover:scale-[1.02] transition-all duration-300"
                 style={{ background: 'linear-gradient(135deg, rgba(15,25,45,0.7) 0%, rgba(20,35,60,0.7) 100%)', border: '1px solid rgba(255,215,0,0.08)' }}>

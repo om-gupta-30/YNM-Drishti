@@ -277,7 +277,7 @@ const ArcRing = () => {
 /* ═══════════════════════════════════════════════════════════════════════
    FloatingIcon — driven by ArcRing's rAF (no own loop)
    ═══════════════════════════════════════════════════════════════════════ */
-const FloatingIcon = memo(({ icon: Icon, conicAngle, delay }) => {
+const FloatingIcon = memo(({ icon: _Icon, conicAngle, delay }) => {
   const containerRef = useRef(null);
   const iconRef      = useRef(null);
   const prevRef      = useRef(-1);    /* previous quantised intensity */

@@ -135,7 +135,7 @@ const About = () => {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="grid md:grid-cols-3 gap-6 mt-20"
         >
-          {values.map((value, index) => (
+          {values.map((value) => (
             <motion.div
               key={value.title}
               className="glass-card rounded-2xl p-6 text-center group hover:border-gold-500/30 transition-all duration-300"

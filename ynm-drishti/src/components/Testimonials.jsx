@@ -48,7 +48,6 @@ const AnimatedStat = ({ value, suffix, isActive }) => {
       return;
     }
     
-    let start = 0;
     const duration = 1500;
     const startTime = Date.now();
     
@@ -573,7 +572,7 @@ const Testimonials = () => {
             { value: '50', suffix: '+', label: 'Organizations' },
             { value: '10', suffix: 'K+', label: 'KM Monitored' },
             { value: '99', suffix: '%', label: 'Satisfaction' },
-          ].map((item, index) => (
+          ].map((item) => (
             <motion.div
               key={item.label}
               className="text-center py-4 px-2 rounded-xl"

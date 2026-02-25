@@ -299,7 +299,7 @@ const isOffTopicQuestion = (message) => {
   ];
   
   // Check for math operations
-  if (msg.match(/\d+\s*[\+\-\*\/]\s*\d+/)) {
+  if (msg.match(/\d+\s*[+\-*/]\s*\d+/)) {
     return true;
   }
   
