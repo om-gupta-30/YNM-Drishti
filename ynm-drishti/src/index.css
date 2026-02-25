@@ -1,0 +1,680 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy-900: #0A1628;
+  --color-navy-800: #1A2847;
+  --color-navy-700: #2C3E5A;
+  --color-navy-600: #4A5F7F;
+  --color-navy-500: #8BA3C7;
+  
+  --color-gold-500: #D4AF37;
+  --color-gold-300: #F4E4C1;
+  --color-gold-400: #E5C96A;
+  
+  --font-family-display: 'Inter', system-ui, sans-serif;
+  --font-family-body: 'Inter', system-ui, sans-serif;
+}
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+    /* Improve text rendering */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  
+  /* Respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+  
+  body {
+    font-family: var(--font-family-body);
+    background-color: var(--color-navy-900);
+    color: white;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+  
+  /* Focus styles for accessibility */
+  :focus-visible {
+    outline: 2px solid var(--color-gold-500);
+    outline-offset: 2px;
+  }
+  
+  /* Remove outline for mouse users */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+  
+  /* Selection styling */
+  ::selection {
+    background-color: var(--color-gold-500);
+    color: var(--color-navy-900);
+  }
+  
+  /* Improve image rendering */
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  /* Lazy loading placeholder */
+  img[loading="lazy"] {
+    background: linear-gradient(135deg, var(--color-navy-800), var(--color-navy-700));
+  }
+  
+  /* Smooth scrollbar for webkit browsers */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: var(--color-navy-900);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-navy-700);
+    border-radius: 5px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-gold-500);
+  }
+}
+
+@layer components {
+  .gradient-text {
+    background: linear-gradient(135deg, var(--color-gold-500), var(--color-gold-300));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .glass-card {
+    background: rgba(26, 40, 71, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+  }
+  
+  .btn-primary {
+    background: linear-gradient(135deg, var(--color-gold-500), var(--color-gold-400));
+    color: var(--color-navy-900);
+    font-weight: 600;
+    padding: 0.875rem 2rem;
+    border-radius: 0.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+    /* GPU acceleration */
+    will-change: transform;
+    transform: translateZ(0);
+  }
+  
+  .btn-primary:hover {
+    transform: translateY(-2px) translateZ(0);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+  }
+  
+  .btn-primary:active {
+    transform: translateY(0) translateZ(0);
+  }
+  
+  .btn-secondary {
+    background: transparent;
+    color: var(--color-gold-300);
+    font-weight: 600;
+    padding: 0.875rem 2rem;
+    border-radius: 0.5rem;
+    border: 2px solid var(--color-gold-500);
+    transition: background 0.3s ease, transform 0.3s ease;
+    will-change: transform;
+    transform: translateZ(0);
+  }
+  
+  .btn-secondary:hover {
+    background: rgba(212, 175, 55, 0.1);
+    transform: translateY(-2px) translateZ(0);
+  }
+  
+  .btn-secondary:active {
+    transform: translateY(0) translateZ(0);
+  }
+  
+  .section-padding {
+    padding: 6rem 1.5rem;
+  }
+  
+  @media (min-width: 768px) {
+    .section-padding {
+      padding: 8rem 2rem;
+    }
+  }
+  
+  .glow-effect {
+    box-shadow: 0 0 60px rgba(212, 175, 55, 0.15);
+  }
+  
+  /* Skip link for accessibility */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  
+  /* Focus styles for sr-only elements to become visible */
+  .sr-only:focus,
+  .sr-only:focus-visible {
+    position: absolute;
+    width: auto;
+    height: auto;
+    padding: 1rem;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+  }
+  
+  /* Improved animation performance */
+  .animate-gpu {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+  
+  /* Fade animations */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .fade-in {
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+  
+  .fade-in.visible {
+    opacity: 1;
+  }
+  
+  /* Slide animations */
+  .slide-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  
+  .slide-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  .slide-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  
+  .slide-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  /* Scale animations */
+  .scale-in {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  
+  .scale-in.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Custom styled scrollbar */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(212, 175, 55, 0.4) rgba(26, 40, 71, 0.3);
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(26, 40, 71, 0.3);
+    border-radius: 3px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(212, 175, 55, 0.4);
+    border-radius: 3px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(212, 175, 55, 0.6);
+  }
+  
+  /* Stagger animation delays */
+  .stagger-1 { transition-delay: 0.1s; }
+  .stagger-2 { transition-delay: 0.2s; }
+  .stagger-3 { transition-delay: 0.3s; }
+  .stagger-4 { transition-delay: 0.4s; }
+  .stagger-5 { transition-delay: 0.5s; }
+  .stagger-6 { transition-delay: 0.6s; }
+  .stagger-7 { transition-delay: 0.7s; }
+  .stagger-8 { transition-delay: 0.8s; }
+  
+  /* Tabular numbers for counters */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+  
+  /* Active scale for touch feedback */
+  .active\:scale-98:active {
+    transform: scale(0.98);
+  }
+  
+  .active\:scale-95:active {
+    transform: scale(0.95);
+  }
+
+  /* Micro-interaction animations */
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+    }
+    50% {
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.6);
+    }
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  @keyframes bounce-subtle {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+
+  .animate-bounce-subtle {
+    animation: bounce-subtle 2s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  .animate-shimmer {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(212, 175, 55, 0.1) 50%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s ease-in-out infinite;
+  }
+
+  /* Ripple effect base */
+  .ripple-container {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ripple-container::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, transparent 70%);
+    opacity: 0;
+    transform: scale(0);
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+  }
+
+  .ripple-container:active::after {
+    opacity: 1;
+    transform: scale(2);
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Remove hover effects on touch devices */
+  .group:hover .group-hover\:opacity-100 {
+    opacity: 0;
+  }
+  
+  /* Increase touch targets */
+  button, a, input, select, textarea {
+    min-height: 44px;
+  }
+  
+  /* Add touch feedback */
+  button:active, a:active {
+    opacity: 0.8;
+  }
+  
+  /* Disable hover transforms on touch */
+  .btn-primary:hover,
+  .btn-secondary:hover {
+    transform: none;
+  }
+  
+  /* Enable active states instead */
+  .btn-primary:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 10px rgba(212, 175, 55, 0.4);
+  }
+  
+  .btn-secondary:active {
+    transform: scale(0.98);
+    background: rgba(212, 175, 55, 0.15);
+  }
+}
+
+/* Safe area insets for notched devices */
+@supports (padding: max(0px)) {
+  .section-padding {
+    padding-left: max(1.5rem, env(safe-area-inset-left));
+    padding-right: max(1.5rem, env(safe-area-inset-right));
+  }
+  
+  @media (min-width: 768px) {
+    .section-padding {
+      padding-left: max(2rem, env(safe-area-inset-left));
+      padding-right: max(2rem, env(safe-area-inset-right));
+    }
+  }
+}
+
+/* Prevent text selection on buttons */
+button {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Prevent zoom on input focus (iOS) */
+@media screen and (max-width: 767px) {
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Smooth momentum scrolling on iOS */
+.overflow-auto,
+.overflow-scroll,
+.overflow-y-auto,
+.overflow-y-scroll,
+.overflow-x-auto,
+.overflow-x-scroll {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Infinite marquee animation */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: fit-content;
+  animation: marquee 15s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Hero — no auto-rotating animations; arcs are scroll-driven via JS */
+
+/* (Legacy roam-hero-* keyframes removed — motion is now JS-driven) */
+
+/* ═══════════════════════════════════════════════════════════════════════
+   STAT CARD COLOR PALETTES — Soft, premium glow breathing
+   11 unique themes: gold, blue, purple, teal, indigo, amber, violet…
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ─── Refined color palette: warm / muted tones ─────────────────────────
+   Each keyframe slowly breathes between two complementary hues.
+   Opacities are deliberately low → soft, premium glow.
+   ──────────────────────────────────────────────────────────────────────── */
+
+/* ─── Lightweight single-layer glow keyframes ──────────────────────────
+   Each card breathes between two hues via a single box-shadow layer
+   (no inset, no stacked shadows → minimal composite cost).
+   ──────────────────────────────────────────────────────────────────────── */
+
+@keyframes neon-gold-warm {
+  0%,100% { border-color: rgba(212,175,55,0.28);  box-shadow: 0 0 16px rgba(212,175,55,0.14); }
+  50%     { border-color: rgba(200,134,10,0.32);   box-shadow: 0 0 20px rgba(200,134,10,0.18); }
+}
+@keyframes neon-blue-sky {
+  0%,100% { border-color: rgba(74,144,217,0.28);   box-shadow: 0 0 16px rgba(74,144,217,0.14); }
+  50%     { border-color: rgba(91,192,235,0.32);    box-shadow: 0 0 20px rgba(91,192,235,0.18); }
+}
+@keyframes neon-soft-purple {
+  0%,100% { border-color: rgba(155,126,216,0.28);   box-shadow: 0 0 16px rgba(155,126,216,0.14); }
+  50%     { border-color: rgba(197,163,255,0.32);    box-shadow: 0 0 20px rgba(197,163,255,0.18); }
+}
+@keyframes neon-teal {
+  0%,100% { border-color: rgba(46,196,182,0.28);    box-shadow: 0 0 16px rgba(46,196,182,0.14); }
+  50%     { border-color: rgba(56,217,169,0.32);     box-shadow: 0 0 20px rgba(56,217,169,0.18); }
+}
+@keyframes neon-blue-indigo {
+  0%,100% { border-color: rgba(59,130,246,0.28);    box-shadow: 0 0 16px rgba(59,130,246,0.14); }
+  50%     { border-color: rgba(99,102,241,0.32);     box-shadow: 0 0 20px rgba(99,102,241,0.18); }
+}
+@keyframes neon-gold-teal {
+  0%,100% { border-color: rgba(212,175,55,0.28);    box-shadow: 0 0 16px rgba(212,175,55,0.14); }
+  50%     { border-color: rgba(46,196,182,0.32);     box-shadow: 0 0 20px rgba(46,196,182,0.18); }
+}
+@keyframes neon-soft-green {
+  0%,100% { border-color: rgba(69,183,170,0.28);    box-shadow: 0 0 16px rgba(69,183,170,0.14); }
+  50%     { border-color: rgba(125,211,192,0.32);    box-shadow: 0 0 20px rgba(125,211,192,0.18); }
+}
+@keyframes neon-amber {
+  0%,100% { border-color: rgba(224,159,62,0.28);    box-shadow: 0 0 16px rgba(224,159,62,0.14); }
+  50%     { border-color: rgba(240,199,94,0.32);     box-shadow: 0 0 20px rgba(240,199,94,0.18); }
+}
+@keyframes neon-blue-soft {
+  0%,100% { border-color: rgba(96,165,250,0.28);    box-shadow: 0 0 16px rgba(96,165,250,0.14); }
+  50%     { border-color: rgba(147,197,253,0.32);    box-shadow: 0 0 20px rgba(147,197,253,0.18); }
+}
+@keyframes neon-violet {
+  0%,100% { border-color: rgba(139,92,246,0.28);    box-shadow: 0 0 16px rgba(139,92,246,0.14); }
+  50%     { border-color: rgba(167,139,250,0.32);    box-shadow: 0 0 20px rgba(167,139,250,0.18); }
+}
+@keyframes neon-emerald {
+  0%,100% { border-color: rgba(52,211,153,0.28);    box-shadow: 0 0 16px rgba(52,211,153,0.14); }
+  50%     { border-color: rgba(110,231,183,0.32);    box-shadow: 0 0 20px rgba(110,231,183,0.18); }
+}
+
+/* (Legacy .animate-roam-* classes removed — motion is now JS-driven,
+   glow is applied via standalone .neon-* classes above) */
+
+/* ═══════════════════════════════════════════════════════════════════════
+   NEON GLOW CLASSES — Standalone glow animations for JS-positioned cards
+   Used when position is controlled by JavaScript (exclusion zone logic)
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ─── Glow utility classes ──────────────────────────────────────────────
+   Unique durations so cards never pulse in sync.
+   No will-change: box-shadow — slow CSS animations don't benefit from
+   compositor promotion, and 11 promoted layers would waste GPU memory.
+   ──────────────────────────────────────────────────────────────────────── */
+
+.neon-gold-warm    { animation: neon-gold-warm    9s  ease-in-out infinite; }
+.neon-blue-sky     { animation: neon-blue-sky     11s ease-in-out infinite; }
+.neon-soft-purple  { animation: neon-soft-purple  8s  ease-in-out infinite; }
+.neon-teal         { animation: neon-teal         10s ease-in-out infinite; }
+.neon-blue-indigo  { animation: neon-blue-indigo  12s ease-in-out infinite; }
+.neon-gold-teal    { animation: neon-gold-teal    9s  ease-in-out infinite; }
+.neon-soft-green   { animation: neon-soft-green   10s ease-in-out infinite; }
+.neon-amber        { animation: neon-amber        8s  ease-in-out infinite; }
+.neon-blue-soft    { animation: neon-blue-soft    11s ease-in-out infinite; }
+.neon-violet       { animation: neon-violet       7s  ease-in-out infinite; }
+.neon-emerald      { animation: neon-emerald      9s  ease-in-out infinite; }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   NEON PARTICLE SYSTEM — Floating dots across hero section
+   Gold and blue glowing particles with slow drift
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* Particle drift animations - constrained within hero section */
+@keyframes particle-drift-1 {
+  0%, 100% { 
+    transform: translate3d(0, 0, 0);
+    opacity: 0.4;
+  }
+  25% { 
+    transform: translate3d(5%, -4%, 0);
+    opacity: 0.8;
+  }
+  50% { 
+    transform: translate3d(8%, 3%, 0);
+    opacity: 0.5;
+  }
+  75% { 
+    transform: translate3d(3%, 6%, 0);
+    opacity: 0.7;
+  }
+}
+
+@keyframes particle-drift-2 {
+  0%, 100% { 
+    transform: translate3d(0, 0, 0);
+    opacity: 0.5;
+  }
+  33% { 
+    transform: translate3d(-6%, 4%, 0);
+    opacity: 0.75;
+  }
+  66% { 
+    transform: translate3d(-3%, -5%, 0);
+    opacity: 0.45;
+  }
+}
+
+@keyframes particle-drift-3 {
+  0%, 100% { 
+    transform: translate3d(0, 0, 0);
+    opacity: 0.35;
+  }
+  20% { 
+    transform: translate3d(4%, 8%, 0);
+    opacity: 0.7;
+  }
+  40% { 
+    transform: translate3d(-2%, 10%, 0);
+    opacity: 0.5;
+  }
+  60% { 
+    transform: translate3d(-5%, 6%, 0);
+    opacity: 0.65;
+  }
+  80% { 
+    transform: translate3d(-3%, 2%, 0);
+    opacity: 0.4;
+  }
+}
+
+@keyframes particle-drift-4 {
+  0%, 100% { 
+    transform: translate3d(0, 0, 0);
+    opacity: 0.45;
+  }
+  25% { 
+    transform: translate3d(-4%, -6%, 0);
+    opacity: 0.8;
+  }
+  50% { 
+    transform: translate3d(2%, -8%, 0);
+    opacity: 0.55;
+  }
+  75% { 
+    transform: translate3d(6%, -3%, 0);
+    opacity: 0.7;
+  }
+}
+
+/* Single-layer particle glow (lighter than stacked double-shadow) */
+@keyframes particle-glow-gold {
+  0%,100% { box-shadow: 0 0 4px rgba(255,215,0,0.5); }
+  50%     { box-shadow: 0 0 8px rgba(255,215,0,0.7); }
+}
+@keyframes particle-glow-blue {
+  0%,100% { box-shadow: 0 0 4px rgba(30,144,255,0.5); }
+  50%     { box-shadow: 0 0 8px rgba(30,144,255,0.7); }
+}
+
+/* Particle utility classes — no will-change (14 elements don't
+   benefit and would create 14 GPU texture layers unnecessarily) */
+.animate-particle-1 { animation: particle-drift-1 60s ease-in-out infinite, particle-glow-gold 4s ease-in-out infinite; }
+.animate-particle-2 { animation: particle-drift-2 55s ease-in-out infinite, particle-glow-blue 5s ease-in-out infinite; }
+.animate-particle-3 { animation: particle-drift-3 65s ease-in-out infinite, particle-glow-gold 3.5s ease-in-out infinite; }
+.animate-particle-4 { animation: particle-drift-4 58s ease-in-out infinite, particle-glow-blue 4.5s ease-in-out infinite; }

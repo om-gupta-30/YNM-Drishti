@@ -1,0 +1,12 @@
+# Never upload environment files
+.env
+.env.*
+!.env.example
+
+# Development files
+node_modules
+.vite
+.cache
+
+# Logs
+*.log

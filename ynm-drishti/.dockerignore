@@ -1,0 +1,49 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build output (we build inside Docker)
+dist/
+dist-ssr/
+build/
+
+# Environment files (secrets should be passed as build args)
+.env
+.env.*
+!.env.example
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+*.sw?
+*.swp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Documentation (not needed in production image)
+*.md
+!README.md
+LICENSE
+
+# Misc
+.vercel
+.netlify
+.cache/
+.temp/
+.tmp/
